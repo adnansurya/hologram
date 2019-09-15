@@ -32,7 +32,7 @@
 </head>
 <body>
     <h1>Tambah Barang</h1>
-    <form>
+  
         <label for="namaBarang">Nama Barang</label>
         <input type="text" name="namaBarang" id="namaBarang"><br><br>
         <label for="hargaBarang">Harga Barang</label>
@@ -40,7 +40,7 @@
         <label for="stokBarang">Jumlah Stok</label>
         <input type="text" name="stokBarang" id="stokBarang"> <br><br>
         <button id="submitBtn">Simpan</button>
-    </form>
+ 
 
     <script>
 
@@ -52,7 +52,7 @@
             harga_barang = $('#hargaBarang').val();
             stok_barang = $('#stokBarang').val();
 
-            db.ref('barang').set({
+            db.ref('barang').push({
                nama : nama_barang,
                harga : harga_barang,
                stok : stok_barang 
@@ -65,7 +65,7 @@
                     $('#hargaBarang').val('');
                     $('#stokBarang').val('');
                     //refresh halaman
-                    location.href = "add_barang.html";
+                    location.href = "/";
                 }
             });
 
