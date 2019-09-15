@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tambah Barang | Ambeso Coffeeshop</title>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyA-a1LIKB0Soms-l3ECo2K0UXtCYI9GOdk",
+        authDomain: "ambeso-project.firebaseapp.com",
+        databaseURL: "https://ambeso-project.firebaseio.com",
+        projectId: "ambeso-project",
+        storageBucket: "ambeso-project.appspot.com",
+        messagingSenderId: "291384682672",
+        appId: "1:291384682672:web:0bfcaa9ed00a0f26743375"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    </script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
@@ -18,6 +38,8 @@
         <input type="text" name="stokBarang" id="stokBarang"> <br><br>
         <button id="submitBtn">Simpan</button>
     </form>
+
+   
     
 
     
