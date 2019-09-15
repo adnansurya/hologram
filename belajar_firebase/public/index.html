@@ -57,7 +57,8 @@
                 <td>` + satuData.harga + `</td>
                 <td>` + satuData.stok + `</td>
                 <td>
-                  <button onclick="hapus('`+satu.key+`')">HAPUS</button>
+                  <button onclick="update('`+satu.key+`')">UPDATE</button>
+                  <button onclick="hapus('`+satu.key+`')">HAPUS</button>                  
                 </td>
             </tr>
           `);
@@ -67,6 +68,10 @@
       function hapus(idData){
         db.ref('barang/'+idData).remove();
         location.href = "index.html";
+      }
+
+      function update(idData){
+          location.href = "update_barang.html?id=" + idData;
       }
   </script>
 

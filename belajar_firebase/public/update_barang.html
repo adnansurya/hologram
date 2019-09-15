@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update Barang | Ambeso Coffeeshop</title>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyA-a1LIKB0Soms-l3ECo2K0UXtCYI9GOdk",
+        authDomain: "ambeso-project.firebaseapp.com",
+        databaseURL: "https://ambeso-project.firebaseio.com",
+        projectId: "ambeso-project",
+        storageBucket: "ambeso-project.appspot.com",
+        messagingSenderId: "291384682672",
+        appId: "1:291384682672:web:0bfcaa9ed00a0f26743375"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // inisialisasi firebase database
+    const db = firebase.database();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <h1>Update Barang</h1>
+  
+        <label for="namaBarang">Nama Barang</label>
+        <input type="text" name="namaBarang" id="namaBarang"><br><br>
+        <label for="hargaBarang">Harga Barang</label>
+        <input type="text" name="hargaBarang" id="hargaBarang"><br><br>
+        <label for="stokBarang">Jumlah Stok</label>
+        <input type="text" name="stokBarang" id="stokBarang"> <br><br>
+        <button id="submitBtn">Simpan</button>
+ 
+
+    <script>
+
+        let idDataEdit;
+        var urlParams;
+        (window.onpopstate = function () {
+            var match,
+                pl     = /\+/g,  // Regex for replacing addition symbol with a space
+                search = /([^&=]+)=?([^&]*)/g,
+                decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                query  = window.location.search.substring(1);
+
+            urlParams = {};
+            while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+            idDataEdit = urlParams['id'];
+            //load data dengan Id
+            loadDataById(idDataEdit);
+                   
+        })();
+
+        function loadDataById(idData){
+            let nama_barang, harga_barang, stok_barang;
+
+            db.ref('barang/'+idData).once('value').then(function(snapshot){
+                let data_barang = snapshot.val();
+
+                nama_barang = data_barang.nama;
+                harga_barang = data_barang.harga;
+                stok_barang = data_barang.stok;
+
+                $('#namaBarang').val(nama_barang);
+                $('#hargaBarang').val(harga_barang);
+                $('#stokBarang').val(stok_barang);
+            });
+        }
+
+
+
+        $('#submitBtn').click(function(){
+            let nama_barang, harga_barang, stok_barang;
+            nama_barang = $('#namaBarang').val();
+            harga_barang = $('#hargaBarang').val();
+            stok_barang = $('#stokBarang').val();
+
+            db.ref('barang/'+idDataEdit).update({
+               nama : nama_barang,
+               harga : harga_barang,
+               stok : stok_barang 
+            },function(error){
+                if(error){
+                    alert(error);
+                }else{
+                    // kosongkan text field
+                    $('#namaBarang').val('');
+                    $('#hargaBarang').val('');
+                    $('#stokBarang').val('');
+                    //refresh halaman
+                    location.href = "/";
+                }
+            });
+
+
+        });
+    </script>
+
+    
+</body>
+</html>
