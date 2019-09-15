@@ -25,6 +25,8 @@
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    // inisialisasi firebase database
+    const db = firebase.database();
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
@@ -41,13 +43,32 @@
     </form>
 
     <script>
+
+
+
         $('#submitBtn').click(function(){
             let nama_barang, harga_barang, stok_barang;
             nama_barang = $('#namaBarang').val();
             harga_barang = $('#hargaBarang').val();
             stok_barang = $('#stokBarang').val();
 
-            
+            db.ref('barang').set({
+               nama : nama_barang,
+               harga : harga_barang,
+               stok : stok_barang 
+            },function(error){
+                if(error){
+                    alert(error);
+                }else{
+                    // kosongkan text field
+                    $('#namaBarang').val('');
+                    $('#hargaBarang').val('');
+                    $('#stokBarang').val('');
+                    //refresh halaman
+                    location.href = "add_barang.html";
+                }
+            });
+
 
         });
     </script>
