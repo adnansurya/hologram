@@ -38,6 +38,36 @@
     <input type="text" name="namaTxt" id="namaTxt" placeholder="Masukkan Nama"><br><br>
     <input type="file" name="gambarFile" id="gambarFile"><br><br>
     <button id="kirimBtn">Kirim</button>
+
+    <script>
+        let nama, foto, ekstensi;
+        
+        function uploadFile(){
+            let storageRef = storage.ref('foto/'+nama+"."+ekstensi);
+            let uploadTask = storageRef.put(foto);
+        }
+
+        $('#kirimBtn').click(function(){
+            nama = $('#namaTxt').val();
+
+            db.ref('galeri').push({
+                nama : nama + "." +ekstensi                
+            }, function (error){
+                if(error){
+                    alert(error);
+                }else{
+                    uploadFile();
+                }
+            });
+        });
+
+        $('#gambarFile').change(function(e){
+            foto = e.target.files[0];
+            let filePath = $('#gambarFile').val(); 
+            ekstensi = filePath.substr(filePath.lastIndexOf('.')+1,filePath.length);
+        });
+        
+    </script>
     
 </body>
 </html>
