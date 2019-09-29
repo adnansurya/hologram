@@ -36,7 +36,8 @@
 <body>
 
     <input type="text" name="namaTxt" id="namaTxt" placeholder="Masukkan Nama"><br><br>
-    <input type="file" name="gambarFile" id="gambarFile"><br><br>
+    <input type="file" name="gambarFile" id="gambarFile"><br>
+    <progress value="0" max="100" id="uploadProg"></progress><br><br>
     <button id="kirimBtn">Kirim</button>
 
     <script>
@@ -45,6 +46,20 @@
         function uploadFile(){
             let storageRef = storage.ref('foto/'+nama+"."+ekstensi);
             let uploadTask = storageRef.put(foto);
+
+            uploadTask.on('state_changed',
+                function progress(snapshot){
+                    let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) *100;
+                    $('#uploadProg').val(percentage);
+                },
+                function error(err){
+                    alert('Terjadi Kesalahan !');
+                },
+                function complete(){
+                    alert('Data berhasil disimpan !');
+                    location.href="add_storage.html";
+                }
+            );
         }
 
         $('#kirimBtn').click(function(){
