@@ -33,6 +33,22 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<body>
+    <div id="dataLoad"></div>
+
+    <script>
+        db.ref('galeri').once('value').then(function(snapshot) {
+            snapshot.forEach(function(satu){
+                let satuData = satu.val();
+                $('#dataLoad').append(`
+                    <h2>` + satuData.nama + `</h2>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/ambeso-project.appspot.com/o/foto%2F`+satuData.nama+`?alt=media" 
+                    alt="`+satuData.nama+`">                   
+                `);
+            });
+
+        });
+    </script>
 
 </body>
 </html>
